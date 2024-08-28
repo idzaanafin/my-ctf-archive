@@ -1,1 +1,1 @@
-all my CTF archive
+all my CTF competition archive
