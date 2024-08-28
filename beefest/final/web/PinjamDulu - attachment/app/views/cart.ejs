@@ -1,0 +1,9 @@
+<%- include('./partials/header.ejs'); %>
+<h1>Cart</h1>
+<ul>
+  <% cartProducts.forEach(product => { %>
+    <li><%= product.product_name %> - Price: $<%= product.product_price %></li>
+  <% }); %>
+</ul>
+<a href="/store">Back to Store</a>
+<%- include('./partials/footer.ejs'); %>

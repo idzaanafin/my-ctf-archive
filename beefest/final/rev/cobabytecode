@@ -1,0 +1,21 @@
+    0: \x80 PROTO      4
+    2: \x95 FRAME      50
+   11: \x8c SHORT_BINUNICODE 'builtins'
+   21: \x8c SHORT_BINUNICODE 'print'
+   28: \x93 STACK_GLOBAL
+   29: \x94 MEMOIZE    (as 0)
+   30: \x94 MEMOIZE    (as 1)
+   31: \x8c SHORT_BINUNICODE 'builtins'
+   41: \x8c SHORT_BINUNICODE 'pow'
+   46: \x93 STACK_GLOBAL
+   47: \x94 MEMOIZE    (as 2)
+   48: \x94 MEMOIZE    (as 3)
+   49: K    BININT1    2
+   51: M    BININT2    65535
+   54: K    BININT1    35
+   56: \x87 TUPLE3
+   57: R    REDUCE
+   58: \x85 TUPLE1
+   59: R    REDUCE
+   60: .    STOP
+highest protocol among opcodes = 4

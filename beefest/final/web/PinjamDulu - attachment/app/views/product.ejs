@@ -1,0 +1,60 @@
+<%- include('./partials/header.ejs'); %>
+
+<div class="container mt-5">
+    <h1>Store</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="<%= products.product_image %>" alt="Product Image" class="img-fluid">
+        </div>
+        <div class="col-md-6">
+            <h2><%= products.product_name %></h2>
+            <p><strong>Price: $<%= products.product_price %></strong></p>
+            <p><%= products.product_desc %></p>
+            <li>
+                <%= products.product_name %> - Price: $<%= products.product_price %> 
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <input class="form-control w-50" type="number" id="qty" name="quantity" min="1" max="10" value="1">
+                    <button class="btn btn-primary w-30" onclick="sendCheckoutRequest()">Buy Product</button>
+                </div>
+            </li>
+        </div>
+    </div>
+</div>
+
+<script>
+    // console.log(qty)
+
+    function sendCheckoutRequest() {
+    const qty = document.getElementById("qty").value;
+    const productId = '<%= products._id %>';
+
+    const checkoutUrl = '/checkout';
+    const requestBody = `productId=${productId}&quantity=${qty}`;
+
+    fetch(checkoutUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: requestBody,
+        redirect: 'manual' // Disallow automatic redirects
+    })
+    .then(response => {
+        if (response.status === 302) {
+            window.location = "/login";
+        } else if (response.status === 200) {
+            return response.text();
+        } else {
+            throw new Error('Checkout request failed');
+        }
+    })
+    .then(responseText => {
+        alert(responseText);
+    })
+    .catch(error => {
+        console.error('An error occurred:', error);
+    });
+}
+
+</script>
+<%- include('./partials/footer.ejs'); %>

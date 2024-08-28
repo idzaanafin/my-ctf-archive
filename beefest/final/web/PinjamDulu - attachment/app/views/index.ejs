@@ -1,0 +1,10 @@
+<%- include('./partials/header.ejs'); %>
+
+<% if (isLogin) { %>
+    <h1>Welcome, <%= username %>!</h1>
+    <p>Your balance: $<%= user_balance %></p>
+<% } else { %>
+    <p>Welcome, guest!</p>
+<% } %>
+
+<%- include('./partials/footer.ejs'); %>

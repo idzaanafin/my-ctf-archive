@@ -1,0 +1,22 @@
+<%- include('./partials/header.ejs'); %>
+
+<h1>Store</h1>
+
+<div class="row">
+  <% products.forEach(product => { %>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><%= product.product_name %></h5>
+        <div>
+        </div>
+        <div style="background-image: url('<%= product.product_image %>'); background-position: center; background-repeat: no-repeat; background-size: contain; height: 250px;"></div>
+        <p class="card-text"><%= product.product_desc %></p>
+        <a href="/product/<%= product._id %>" class="btn btn-primary">Details</a>
+      </div>
+    </div>
+  </div>
+  <% }); %>
+</div>
+
+<%- include('./partials/footer.ejs'); %>
