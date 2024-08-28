@@ -1,0 +1,100 @@
+// main.decrypt
+// local variable allocation has failed, the output may be wrong!
+uint8 *__golang main_decrypt(string encryptedString, string keyString)
+{
+  __int64 v2; // r14
+  __int128 v3; // xmm15
+  unsigned __int64 v4; // rax
+  unsigned __int64 v5; // rax
+  unsigned __int64 v6; // rax
+  __int64 v7; // rdi
+  __int64 v8; // rsi
+  __int64 v10; // rax
+  const internal_abi_Type *v11; // rax
+  __int64 v12; // rax
+  runtime_itab *tab; // [rsp+68h] [rbp-78h]
+  unsigned __int64 cap; // [rsp+70h] [rbp-70h]
+  unsigned __int64 key; // [rsp+78h] [rbp-68h]
+  unsigned __int64 v16; // [rsp+80h] [rbp-60h] BYREF
+  int v17; // [rsp+88h] [rbp-58h]
+  runtime_tmpBuf buf; // [rsp+90h] [rbp-50h] BYREF
+  void *data; // [rsp+B0h] [rbp-30h]
+  uint8 *array; // [rsp+B8h] [rbp-28h]
+  _slice_uint8 v21; // [rsp+C0h] [rbp-20h] BYREF
+  interface_ v23; // 0:rax.8,8:rbx.8
+  _slice_uint8 v24; // 0:rax.8,8:rbx.8,16:rcx.8
+  _slice_uint8 v25; // 0:rax.8,8:rbx.8,16:rcx.8
+  _slice_uint8 v26; // 0:rax.8,8:rbx.8,16:rcx.8
+  _slice_uint8 v27; // 0:rax.8,8:rbx.8,16:rcx.8 OVERLAPPED
+  retval_470F40 v28; // 0:rax.8,8:rbx.8,16:rcx.8,24:rdi.8
+  retval_46EDA0 v29; // 0:rax.8,8:rbx.8,16:rcx.8,24:rdi.8
+
+  if ( (unsigned __int64)&v16 <= *(_QWORD *)(v2 + 16) )
+  {
+    runtime_morestack_noctxt();
+    JUMPOUT(0x48133FLL);
+  }
+  v24 = runtime_stringtoslicebyte((runtime_tmpBuf *)buf, keyString);
+  key = v24.cap;
+  v21.array = v24.array;
+  v4 = (unsigned __int64)encoding_hex_Decode(v24, v24);
+  if ( key < v4 )
+    runtime_panicSliceAcap();
+  v17 = v4;
+  v25 = runtime_stringtoslicebyte(0LL, encryptedString);
+  array = v25.array;
+  cap = v25.cap;
+  v5 = (unsigned __int64)encoding_hex_Decode(v25, v25);
+  if ( cap < v5 )
+LABEL_13:
+    runtime_panicSliceAcap();
+  v16 = v5;
+  v26.array = v21.array;
+  v26.len = v17;
+  v26.cap = key;
+  v28 = crypto_aes_NewCipher(v26);
+  if ( v28._r1.tab )
+  {
+LABEL_12:
+    v12 = ((__int64 (__golang *)(void *, void *))v28._r1.tab->fun[0])(v28._r1.data, v28._r0.data);
+    v23.data = runtime_convTstring((string)v28._r0);
+    v23._type = (internal_abi_Type *)&RTYPE_string_0;
+    runtime_gopanic(v23);
+    goto LABEL_13;
+  }
+  v28 = (retval_470F40)crypto_cipher_newGCMWithNonceAndTagSize(v28._r0, 12LL, 16LL);
+  if ( v29._r1.tab )
+  {
+    v10 = ((__int64 (__golang *)(__int64, void *))v29._r1.tab->fun[0])(16LL, v29._r0.data);
+    v28._r0.data = runtime_convTstring((string)v29._r0);
+    v11 = &RTYPE_string_0;
+    runtime_gopanic((interface_)v28._r0);
+    goto LABEL_12;
+  }
+  data = v29._r0.data;
+  tab = v29._r0.tab;
+  v6 = ((__int64 (__golang *)(void *))v29._r0.tab->fun[0])(v29._r0.data);
+  if ( cap < v6 )
+    runtime_panicSliceAcap();
+  if ( v16 < v6 )
+    runtime_panicSliceB();
+  v27.len = 0LL;
+  v27.array = (uint8 *)((__int64 (__golang *)(void *, _QWORD, _QWORD, _QWORD, uint8 *, unsigned __int64, unsigned __int64))tab[1].inter)(
+                         data,
+                         0LL,
+                         0LL,
+                         0LL,
+                         array,
+                         v6,
+                         cap);
+  *(_OWORD *)&v21.len = v3;
+  v27.array = (uint8 *)runtime_convTslice(v27);
+  v21.len = (int)&RTYPE__slice_uint8_0;
+  v21.cap = (int)v27.array;
+  v27.array = (uint8 *)"%s";
+  v27.len = 2LL;
+  v27.cap = (int)&v21.len;
+  v7 = 1LL;
+  v8 = 1LL;
+  return fmt_Sprintf(*(string *)&v27.array, *(_slice_interface_ *)&v27.cap).str;
+}
